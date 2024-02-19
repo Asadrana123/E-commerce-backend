@@ -1,0 +1,11 @@
+const express=require("express");
+const router=express.Router();
+const {isAuthenticated, AuthorizedRoles}=require("../middleware/auth");
+const {createOrder,getSingleOrder,getOrderedItemsbyUser, getallOrder, updateOrder, deleteOrder}=require("../Controller/orderController");
+router.post("/newOrder",isAuthenticated,createOrder);
+router.get("/getSingleOrderDetails/:id",isAuthenticated,AuthorizedRoles("admin"),getSingleOrder);
+router.get("/me/:id",isAuthenticated,getOrderedItemsbyUser);
+router.get("/totalamount",isAuthenticated,AuthorizedRoles("admin"),getallOrder);
+router.put("/updateorderstatus/:id",isAuthenticated,updateOrder);
+router.delete("/delete",isAuthenticated,AuthorizedRoles("admin"),deleteOrder);
+module.exports=router;
